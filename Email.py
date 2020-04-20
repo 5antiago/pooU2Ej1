@@ -1,3 +1,5 @@
+import re
+
 class Email:
     __idcuenta = str
     __dominio = str
@@ -18,10 +20,12 @@ class Email:
         return str(self.__dominio)          #Devuelve un String con el Dominio
     def CrearCuenta(self, email):
         if type(email) == str:  
-            if '@' in email:            
+            if re.search("^[(a-z0-9\_\.)]+@[(a-z0-9\_\.)]+\.[(a-z)]{2,15}$", email.lower()):            
                 self.__idcuenta, email = email.split("@")
                 self.__dominio, self.__tipodominio = email.split(".", 1)
                 return(self)
+            else:
+                return False
     def getpassword(self):
         return str(self.__contrasena)
     def changepassword(self, password):
